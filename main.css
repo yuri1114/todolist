@@ -1,0 +1,147 @@
+@charset "utf-8";
+
+@font-face {
+  font-family: "GangwonEduPowerExtraBoldA";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduPowerExtraBoldA.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Ownglyph_ParkDaHyun";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "EliceDigitalBaeum_Bold";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_220508@1.0/EliceDigitalBaeum_Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+button {
+  cursor: pointer;
+  padding-block: 0;
+  padding-inline: 0;
+}
+input:focus {
+  outline: none;
+}
+
+main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+
+  align-items: center;
+}
+
+.inner-wrap {
+  width: 64.0625rem;
+  min-width: 64.0625rem;
+  background-color: #f5f5dc;
+  padding-top: 3.125rem;
+  padding-bottom: 3.125rem;
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+  font-size: 3.625rem;
+  font-family: "GangwonEduPowerExtraBoldA";
+}
+
+h3 {
+  font-family: "Ownglyph_ParkDaHyun";
+  font-size: 1.875rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.bottom-text-wrap {
+  margin: 0 auto;
+  width: 48rem;
+}
+
+.input-label-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-label-item label {
+  font-size: 1.75rem;
+  line-height: 2.375rem;
+  margin-bottom: 1rem;
+  font-family: "EliceDigitalBaeum_Bold";
+}
+
+.input-label-item input {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  height: 3.125rem;
+  padding: 0.625rem 0.625rem 0.5rem;
+  font-size: 1rem;
+}
+
+.input-label-item input::placeholder {
+  font-size: 1rem;
+  line-height: 3.125rem;
+  color: #d9d9d9;
+}
+
+.input-label-item input:focus {
+  border-bottom: 2px solid #000;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+.btn-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-wrap button {
+  width: 50%;
+  height: 2.375rem;
+  font-family: "EliceDigitalBaeum_Bold";
+}
+
+.login-btn {
+  background: #fff;
+  border: 0;
+}
+
+.login-btn:hover {
+  background: #2a65a8;
+  color: #fff;
+}
+.join-btn {
+  border: 1px solid #000;
+  background: #e6e6e6;
+  color: #234055;
+}
+
+.join-btn:hover {
+  color: #fff;
+  background: #234055;
+}
