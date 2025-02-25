@@ -10,27 +10,48 @@
   </head>
   <body>
     <main>
-      <div class="inner-wrap">
-        <h2>TO DO LIST</h2>
-        <h3>When you have a big problem, <br />break it into smaller ones.</h3>
+      <div class="common-wrap">
+        <div class="inner-wrap">
+          <h2>TO DO LIST</h2>
+          <h3>
+            When you have a big problem, <br />break it into smaller ones.
+          </h3>
 
-        <div class="bottom-text-wrap">
-          <form>
-            <div class="input-label-item mb-16">
-              <label for="id">아이디</label>
-              <input type="text" placeholder="id를 입력하세요" />
+          <div class="bottom-text-wrap">
+            <div class="top-layout">
+              <div class="input-wrap">
+                <input
+                  id="todoInput"
+                  type="text"
+                  placeholder="할 일을 입력하세요"
+                />
+                <button onclick="addTodoList()" class="add-btn">Add</button>
+              </div>
+              <div class="btn-wrap">
+                <button class="filter-btn">Filter</button>
+                <button class="mode-btn">
+                  <img src="/img/dark-icon.png" alt="dark" />
+                  <!-- <img src="/img/light-icon.png" alt="light" /> -->
+                  <p>dark</p>
+                </button>
+              </div>
             </div>
 
-            <div class="input-label-item mb-16">
-              <label for="psword">비밀번호</label>
-              <input type="text" placeholder="비밀번호를 입력하세요" />
+            <!-- 할일 없을때 문구 -->
+            <p class="empty-text">할일을 추가해 보세요!</p>
+
+            <div class="list-to-do"></div>
+          </div>
+
+          <!-- 수정 모달 -->
+          <div class="edit-modal">
+            <div class="modal-inner">
+              <h3>수정할 내용을 입력하세요</h3>
+              <input id="editInput" type="text" />
             </div>
 
-            <div class="btn-wrap">
-              <button class="login-btn">로그인</button>
-              <button class="join-btn">회원가입</button>
-            </div>
-          </form>
+            <button onclick="save()" class="save-btn">저장</button>
+          </div>
         </div>
       </div>
     </main>
