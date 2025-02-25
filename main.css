@@ -92,7 +92,7 @@ h3 {
   display: flex;
   align-items: center;
   gap: 20px;
-  width: calc(100% - 200px);
+  width: calc(100% - 100px);
 }
 
 .input-wrap input {
@@ -228,6 +228,10 @@ h3 {
   line-height: 2.1875rem;
   font-family: "Pretendard-Regular";
   font-family: "Ownglyph_ParkDaHyun";
+}
+
+.checked {
+  text-decoration: line-through;
 }
 
 /* add모달 */

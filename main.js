@@ -1,49 +1,73 @@
-//아무런 할일 없을 때
-//만약에 todo-item이 없다면 empty를 보이고, 그렇지 않다면 지워라.
+// 페이지가 로드될 때마다 실행
+window.onload = function () {
+  loadFromLocalStorage();
+};
+
+function loadFromLocalStorage() {
+  const storedTodos = localStorage.getItem("todos");
+
+  if (storedTodos) {
+    const todos = JSON.parse(storedTodos);
+    todos.forEach((todo) => addTodoToDOM(todo.text, todo.checked));
+
+    emptyText();
+  }
+}
 
 //할일 추가 Add버튼
 function addTodoList() {
-  //1. 인풋에 입력
-  const todoText = document.getElementById("todoInput");
+  const todoInput = document.getElementById("todoInput");
+  const todoText = todoInput.value.trim();
 
-  //2. 입력한 내용의 todo-item 폼 생성!
+  if (todoText === "") {
+    alert("할 일을 입력해주세요!"); // 빈 값일 경우 얼럿 띄우기
+    return;
+  }
+
+  addTodoToDOM(todoText, false);
+  saveToLocalStorage();
+  //입력 input 초기화
+  todoInput.value = "";
+
+  //todo item 없을 때
+  emptyText();
+}
+
+//할 일을 DOM에 추가하는 함수
+function addTodoToDOM(text, isChecked) {
   const todoItem = document.createElement("div");
   const itemContainer = document.querySelector(".list-to-do");
 
   todoItem.classList.add("todo-item");
   todoItem.innerHTML = `
     <div class="left-item">
-      <input type="checkbox" />
-      <p class="work-text">${todoText.value}</p>
+      <input onchange="doneTodo(this)" class="item-checkbox" type="checkbox" ${
+        isChecked ? "checked" : ""
+      } />
+      <p class="work-text ${isChecked ? "checked" : ""}">${text}</p>
     </div>
-
     <div class="right-item">
       <button class="edit-btn" onClick="editTodo(this)">수정</button>
-      <button class="edit-btn delete" onClick="deleteTodo()">삭제</button>
+      <button class="edit-btn delete" onClick="deleteTodo(this)">삭제</button>
     </div>
   `;
 
   itemContainer.appendChild(todoItem);
-
-  //3. item 생성 후, input 글 지우기.
-  todoText.value = "";
-
-  emptyText();
 }
 
 //삭제하기
-function deleteTodo() {
-  const todoItem = document.querySelector(".todo-item");
+function deleteTodo(button) {
+  const todoItem = button.closest(".todo-item");
   todoItem.remove();
   emptyText();
+  saveToLocalStorage();
 }
 
-//todo item 없을 때 함수.
+//todo item 없을 때
 function emptyText() {
   //list-to-do의 todo-item이 없으면
   //empty-text가 block이고
   //있으면 none
-
   const todoItem = document.querySelectorAll(".todo-item");
   const empty = document.querySelector(".empty-text");
   const itemLength = todoItem.length;
@@ -68,12 +92,13 @@ function editTodo(button) {
 
   modalInput.value = workText.textContent;
 
+  // index 저장
   modal.dataset.targetIndex = [
     ...document.querySelectorAll(".work-text"),
-  ].indexOf(workText); // index 저장
+  ].indexOf(workText);
 
   console.log(modal.dataset.targetIndex);
-  
+
   modal.classList.add("show-modal");
 }
 
@@ -91,4 +116,68 @@ function save() {
   }
 
   modal.classList.remove("show-modal");
+}
+
+//체크박스
+function doneTodo(checkbox) {
+  const todoItem = checkbox.closest(".todo-item");
+  const workText = todoItem.querySelector(".work-text");
+  console.log("??", checkbox.checked);
+
+  //만약에 체크박스가 체크드 되면,
+  //work-text에 스타일추가
+
+  if (checkbox.checked) {
+    workText.classList.add("checked");
+  } else {
+    workText.classList.remove("checked");
+  }
+
+  saveToLocalStorage();
+}
+
+let isFiltered = false;
+//필터
+function filter() {
+  //필터 버튼을 한번 누르면 checked된 항목은 보이지 않음.
+  //필터 버튼을 다시 한번 누르면 모든 항목 보임.
+
+  const todoItems = document.querySelectorAll(".todo-item");
+  let checkedFound = false;
+  isFiltered = !isFiltered;
+  if (isFiltered) {
+    // 체크된 항목 숨기기
+    todoItems.forEach((item) => {
+      const checkbox = item.querySelector("input[type='checkbox']");
+
+      if (checkbox.checked) {
+        item.style.display = "none"; // 체크된 항목 숨김
+        checkedFound = true;
+      }
+    });
+
+    // 체크된 항목이 없으면 얼럿 띄우기
+    if (!checkedFound) {
+      alert("완료된 할 일이 없습니다.");
+    }
+  } else {
+    // 모든 항목 보이기
+    todoItems.forEach((item) => {
+      item.style.display = "flex"; // 항목 보이기
+    });
+  }
+}
+
+//로컬스토리지 저장
+function saveToLocalStorage() {
+  const todoItems = document.querySelectorAll(".todo-item");
+  const todos = [];
+
+  todoItems.forEach((item) => {
+    const workText = item.querySelector(".work-text").textContent;
+    const isChecked = item.querySelector("input[type='checkbox']").checked;
+    todos.push({ text: workText, checked: isChecked });
+  });
+
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
